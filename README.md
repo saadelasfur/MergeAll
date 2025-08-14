@@ -1,19 +1,35 @@
-# Samsung firmware merge tools
+# MergeAll - Merges Samsung OTA (Over The Air) binary files
 
-### This script is currently in it's early stages.
+### This script is currently still in development, some devices are not currently supported yet
 
-### This only works for the S24x and earlier (for now)
-#
-# How to use MergeAll.sh
+### Currently MergeAll supports most Samsung devices older than the Galaxy S24 series
 
-Using MergeAll.sh is very simple, all it takes is a few commands to set it up and merging straight away!
+### MergeAll works best on devices from the Galaxy S20 series to the Galaxy S24 Series
 
-If you are using a Debian based disro (such as Ubuntu) then MergeAll installs all the required dependencies for you.
+## Deps
 
-If you are NOT using a Debian based distro the required dependencies are: 
+Firstly install the required deps
 
-`unzip tar lz4`
+The most popular 3 package managers used here as an example, but it may vary throughout others
 
+APT (Debian, Ubuntu, Linux mint)
+
+```bash
+sudo apt update && sudo apt install -y unzip tar lz4
+```
+
+DNF (Fedora, RHEL, CentOS Stream)
+
+```bash
+sudo dnf install unzip tar lz4
+```
+
+Pacman (Arch, Manjaro)
+
+```bash
+sudo pacman -Syu unzip tar lz4
+```
+## Usage guide
 Firstly, clone my repo with git
 
 ```bash 
@@ -32,12 +48,17 @@ Now start merging with the command below!
 ./MergeAll.sh [path to ODIN firmware ZIP] [path to update BIN]
 ```
 
-#
-
-Command to cleanup EVERYTHING if something has failed, or if you want to merge for another device
+## Cleanup commands
 
 ```bash
 ./MergeAll.sh cleanup
 ```
 
-WARNING: The command to cleanup everything WILL delete all of the images and files in the MergeAll folder, excluding the files required to run MergeAll again.
+Deletes everything in the MergeAll folder BUT extracted odin firmware and the out directory
+
+
+```bash
+./MergeAll.sh cleanupall
+```
+
+Deletes all work and out directories in the MergeAll folder

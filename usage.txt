@@ -3,6 +3,19 @@ Guide on how to merge Samsung Beta Firmware
 By @EndaDwagon | t.me/endarom
 -------------------------------------------
 
+Usage for the merge script:
+
+./MergeAll.sh [path to ODIN firmware ZIP] [path to update BIN]
+
+Optional cleanup commands:
+
+./MergeAll.sh cleanup
+Deletes everything in the MergeAll folder BUT extracted odin firmware and the out directory
+
+./MergeAll.sh cleanupall
+Deletes all work and out directories in the MergeAll folder
+
+-------------------------------------------
 
 Put all the files needed in the same folder as this
 Such as your super, and the dat files for the partitions you want to merge
@@ -10,14 +23,14 @@ Such as your super, and the dat files for the partitions you want to merge
 DOES NOT WORK ON WSL UNLESS YOU ARE USING AN EXT4 PARTITION
 
 ------------------------------------------
-Desparsing and extracting your super image
+Unsparsing and extracting your super image
 ------------------------------------------
 If your super image is LZ4 Do the following commands
 sudo apt update && sudo apt upgrade && sudo apt install lz4
 lz4 super.img.lz4
 rm -rf super.img.lz4
 
-Now thats out the way, desparse your super image with the following command
+Now thats out the way, unsparse your super image with the following command
 
 ./imjtool super.img extract
 mv super.img super.img-old 2>/dev/null ; mv extracted/image.img super.img
