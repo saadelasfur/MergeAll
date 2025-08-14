@@ -219,7 +219,7 @@ MERGED_IMAGES_DIR="./_images/super/images"
         fi
     done) \
     --sparse \
-    --output ./_build_tmp/super.img 2>&1 | grep -v "Invalid sparse file format"
+    --output ./_build_tmp/super.img
     
 echo "Super rebuilt"
 
