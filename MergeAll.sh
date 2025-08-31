@@ -100,10 +100,16 @@ rm -rf _lz4tmp
 
 # Desparse super
 echo
-echo "Desparsing super..."
+echo "Unsparsing super..."
 ./imjtool _images/super.img extract
 mv _images/super.img _images/super.img-old 2>/dev/null
 mv extracted/image.img _images/super.img
+./imjtool _images/prism.img extract
+mv _images/prism.img _images/prism.img-old 2>/dev/null
+mv extracted/image.img _images/prism.img
+./imjtool _images/optics.img extract
+mv _images/optics.img _images/optics.img-old 2>/dev/null
+mv extracted/image.img _images/optics.img
 rm -rf extracted
 
 # Extract super
