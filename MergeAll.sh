@@ -1,4 +1,7 @@
 #!/bin/bash
+
+SRC_DIR="$(pwd)"
+export PATH="$SRC_DIR/tools/bin:$PATH"
 START_TIME=$(date +%s)
 if [ "$1" == "cleanup" ]; then
     echo "Cleaning up work dirs..."
@@ -101,13 +104,13 @@ rm -rf _lz4tmp
 # Desparse super
 echo
 echo "Unsparsing super..."
-./imjtool _images/super.img extract
+imjtool _images/super.img extract
 mv _images/super.img _images/super.img-old 2>/dev/null
 mv extracted/image.img _images/super.img
-./imjtool _images/prism.img extract
+imjtool _images/prism.img extract
 mv _images/prism.img _images/prism.img-old 2>/dev/null
 mv extracted/image.img _images/prism.img
-./imjtool _images/optics.img extract
+imjtool _images/optics.img extract
 mv _images/optics.img _images/optics.img-old 2>/dev/null
 mv extracted/image.img _images/optics.img
 rm -rf extracted
@@ -117,8 +120,8 @@ echo
 echo "Extracting super"
 mkdir _images/super
 mkdir _images/super/images
-./lpdump _images/super.img > _images/super/superlpdump.txt
-./lpunpack _images/super.img _images/super/images
+lpdump _images/super.img > _images/super/superlpdump.txt
+lpunpack _images/super.img _images/super/images
 echo "Super Extracted"
 
 # Parse super
@@ -180,7 +183,7 @@ for partition in "${PARTITIONS[@]}"; do
     if [ -f "$img_file" ] && [ -f "$transfer_list" ] && [ -f "$new_dat" ] && [ -f "$patch_dat" ]; then
     	echo
         echo "Merging ${partition}..."
-        ./BlockImageUpdate "$img_file" "$transfer_list" "$new_dat" "$patch_dat" > /dev/null 2>&1
+        BlockImageUpdate "$img_file" "$transfer_list" "$new_dat" "$patch_dat" > /dev/null 2>&1
         echo "${partition} merge complete!"
     else
     	echo
@@ -196,7 +199,7 @@ for partition in "${EXTRAPARTITIONS[@]}"; do
     if [ -f "$img_file" ] && [ -f "$transfer_list" ] && [ -f "$new_dat" ] && [ -f "$patch_dat" ]; then
     	echo
         echo "Merging ${partition}..."
-        ./BlockImageUpdate "$img_file" "$transfer_list" "$new_dat" "$patch_dat" > /dev/null 2>&1
+        BlockImageUpdate "$img_file" "$transfer_list" "$new_dat" "$patch_dat" > /dev/null 2>&1
         echo "${partition} merge complete!"
     else
         echo "Skipping ${partition} (doesn't exist)"
@@ -211,7 +214,7 @@ mkdir _build_tmp
 
 MERGED_IMAGES_DIR="./_images/super/images"
 
-./lpmake \
+lpmake \
     --metadata-size ${METADATA_SIZE:-65536} \
     --super-name super \
     --metadata-slots ${METADATA_SLOTS:-2} \
